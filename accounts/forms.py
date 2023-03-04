@@ -16,7 +16,6 @@ class UserCreationForm(forms.ModelForm):
         cd = self.cleaned_data
 
         if cd['password1'] and cd['password2'] and cd['password1'] != cd['password2']:
-
             raise ValidationError("password must be matched")
         return cd['password2']
 
@@ -31,9 +30,15 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
-
     password = ReadOnlyPasswordHashField(help_text="you can change password by <a href=\" ../password/\">this form<a>")
 
     class Meta:
         model = User
         fields = ['email', 'full_name', 'phone_number', 'password', 'last_login']
+
+
+class UserRegistrationForm(forms.Form):
+    email = forms.EmailField()
+    full_name = forms.CharField(label='full name')
+    phone = forms.CharField(max_length=11)
+    password = forms.CharField(widget=forms.PasswordInput)
