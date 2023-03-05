@@ -16,9 +16,10 @@ class UserRegisterView(View):
         return render(request, 'accounts/register.html', {'form': form})
 
     def post(self, request):
-        form = self.form_class
-        cd = form.cleaned_data
+        form = self.form_class(request.POST)
+
         if form.is_valid():
+            cd = form.cleaned_data
             random_code = randint(1000, 9999)
             send_top_code(cd['phone'], random_code)
             OtpCode.objects.create(phone_number=cd['phone'], code=random_code)
@@ -34,8 +35,12 @@ class UserRegisterView(View):
 
 
 class UserRegisterVerifyCodeView(View):
+
+
     def get(self, request):
         pass
+
+
 
     def post(self, request):
         pass
