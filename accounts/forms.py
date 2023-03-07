@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
+
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label="password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="confirm password", widget=forms.PasswordInput)
