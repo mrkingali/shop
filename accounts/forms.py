@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
-
 class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField(label="password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="confirm password", widget=forms.PasswordInput)
@@ -43,6 +42,20 @@ class UserRegistrationForm(forms.Form):
     full_name = forms.CharField(label='full name')
     phone = forms.CharField(max_length=11)
     password = forms.CharField(widget=forms.PasswordInput)
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = User.objects.filter(email=email).exists()
+        if user:
+            raise ValidationError("this email already exists")
+        return email
+
+    def clean_phone(self):
+        phone_number = self.cleaned_data['phone']
+        user = User.objects.filter(phone_number=phone_number).exists()
+        if user:
+            raise ValidationError("this phone number already exists")
+        return phone_number
 
 
 class VerifyCodeForm(forms.Form):
