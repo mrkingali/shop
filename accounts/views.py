@@ -22,7 +22,8 @@ class UserRegisterView(View):
         if form.is_valid():
             cd = form.cleaned_data
             random_code = randint(1000, 9999)
-            send_otp_code(cd['phone'], random_code)
+            #when we connect to api service recomment this code
+            #send_otp_code(cd['phone'], random_code)
             OtpCode.objects.create(phone_number=cd['phone'], code=random_code)
             request.session['user_registration_info'] = {
                 'phone_number': cd['phone'],
