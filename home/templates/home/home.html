@@ -6,5 +6,14 @@
 {% endblock %}
 
 {% block content %}
-    <h3>hello asal</h3>
+    {% for product in products %}
+        <div class="card" style="width:18rem;" >
+            <img src="{{ product.image.url }}" alt="" class="card-iny-top" width="200">
+            <div class="card_body">
+                <a href="{{ product.get_absolute_url }}" class="card-title">{{ product.name }}</a>
+            </div>
+
+        </div>
+    {% endfor %}
+
 {% endblock %}
