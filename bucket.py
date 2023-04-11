@@ -14,7 +14,7 @@ class Bucket:
     """
 
     def __init__(self):
-        session = boto3.Session()
+        session = boto3.session.Session()
         self.connection = session.client(
             service_name=settings.AWS_SERVICE_NAME,
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -29,8 +29,9 @@ class Bucket:
                                                 settings.AWS_STORAGE_BUCKET_NAME)
 
 
-        if result["KeyCount"]:
-            return result["Contents"]
-        else:
-            return None
+        # if result["KeyCount"]:
+        #     return result["Contents"]
+        # else:
+        #     return None
+        return result
 bucket=Bucket()

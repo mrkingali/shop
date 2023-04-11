@@ -3,12 +3,16 @@ from django.views import View
 from .models import Product
 from .tasks import all_bucket_objects_task
 
-
+from django.conf import settings
 # Create your views here.
 
 class HomeView(View):
+
+
     def get(self, request):
         products = Product.objects.filter(available=True)
+        for product in products:
+            print(product.image.url)
         return render(request, 'home/home.html', {'products': products})
 
 
