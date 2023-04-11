@@ -7,10 +7,14 @@ class Bucket:
     CDN bucket manager
 
     init method creates connection
+
+    Note:
+        none of these method arnt async use instance instead
+
     """
 
     def __init__(self):
-        session = boto3.session.Session()
+        session = boto3.Session()
         self.connection = session.client(
             service_name=settings.AWS_SERVICE_NAME,
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -18,3 +22,15 @@ class Bucket:
             endpoint_url=settings.AWS_S3_ENDPOINT_URL,
 
         )
+
+    def get_objects(self):
+
+        result = self.connection.list_object_v2(Bucket=
+                                                settings.AWS_STORAGE_BUCKET_NAME)
+
+
+        if result["KeyCount"]:
+            return result["Contents"]
+        else:
+            return None
+bucket=Bucket()

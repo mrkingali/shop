@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Size</th>
+                <th scope="col">Download</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        {% for obj in objects %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ obj.Size | filesizeformat}}</td>
+                <td>downlaod</td>
+                <td>delete</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+{% endblock %}
